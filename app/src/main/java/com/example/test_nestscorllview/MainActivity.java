@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.google.android.material.tabs.TabLayout;
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
-    private TabLayout tabLayout,tabLayout2;
+    private TabLayout tabLayout;
     private List<Fragment> listFragment;
     private List<String> listTitle;
     private FragmentPagerAdapter mAdapter;
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         viewPager = findViewById(R.id.vp_main);
         tabLayout = findViewById(R.id.tab_layout_main);
-        tabLayout2=findViewById(R.id.tab_layout_main2);
+
         img_main=findViewById(R.id.img_main);
         scroll_main=findViewById(R.id.Scroll_main);
         if (getSupportActionBar()!= null) {
@@ -50,18 +51,29 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(mAdapter);
         viewPager.setOffscreenPageLimit(1);
         tabLayout.setupWithViewPager(viewPager);//与ViewPage建立关系
-        tabLayout2.setupWithViewPager(viewPager);
         scroll_main.setScrollListener(new Scorll.ScrollListener() {
             @Override
             public void onScroll(int ScrollY) {
-                if (ScrollY>img_main.getHeight()){
-                    tabLayout2.setVisibility(View.VISIBLE);
-
-                }else {
-                    tabLayout2.setVisibility(View.GONE);
-                }
+//                if (ScrollY>img_main.getHeight()){
+//                    tabLayout2.setVisibility(View.VISIBLE);
+//
+//                }else {
+//                    tabLayout2.setVisibility(View.GONE);
+//                }
             }
         });
+    }
+
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            int height = scroll_main.getMeasuredHeight() - tabLayout.getLayoutParams().height;//计算ViewPage适和高度
+            ViewGroup.LayoutParams layoutParams = viewPager.getLayoutParams();
+            layoutParams.height = height;//修改ViewPage高度
+            viewPager.setLayoutParams(layoutParams);//更新ViewPage高度
+        }
     }
 
 

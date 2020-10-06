@@ -37,17 +37,10 @@
                 android:overScrollMode="never"
                 android:layout_below="@id/tab_layout_main"
                 android:layout_width="match_parent"
-                android:layout_height="3000px" />
+                android:layout_height="match_parent" />
 
 
         </RelativeLayout>
     </com.example.test_nestscorllview.Scorll>
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab_layout_main2"
-        android:layout_gravity="top"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#fff"
-        android:visibility="gone"/>
 </FrameLayout>
